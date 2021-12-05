@@ -6,9 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Main {
     public static void main(String[] args){
         setChromeDriverProperty();
-        Problem_1 p1 = new Problem_1();
-        p1.run();
-        p1.finish();
+//        Problem_1 p1 = new Problem_1();
+//        p1.run();
+//        p1.finish();
         Problem_2 p2 = new Problem_2();
         p2.run();
         p2.finish();
