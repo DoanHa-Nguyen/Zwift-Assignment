@@ -5,39 +5,24 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Main {
     public static void main(String[] args){
-        System.out.println("Hello World");
+        setChromeDriverProperty();
+        Problem_1 p1 = new Problem_1();
+        p1.run();
+        p1.finish();
+        Problem_2 p2 = new Problem_2();
+        p2.run();
+        p2.finish();
 
-        WebDriver driver = initiateChromeDriver();
-        test_1(driver);
 
-
- //       driver.quit();
     }
-    protected static WebDriver initiateChromeDriver(){
+    protected static void setChromeDriverProperty(){
         String path = System.getProperty("user.dir");
         System.out.println(path);
-        System.setProperty("webdriver.chrome.driver",path+"\\src\\main\\resources\\chromedriver.exe");
-//        System.setProperty("webdriver.chrome.driver",path+"\\classes\\chromedriver.exe");
-
-        return new ChromeDriver();
-    }
-    protected static void test_1(WebDriver d){
-        //initiate the first test
-        Problem_1 p1 = new Problem_1(d);
-        //Test if we can connect to Zwift website
-        if(p1.testConnection()){
-            System.out.println("Connection test passed");
-        }else {
-            System.out.println("Connection test failed");
-            //if we cannot connect to Zwift website, no further test can progress, so exit the program
-            System.exit(3);
-        }
-        //Test if we can find the "Accept All" button for cookies.
-        if(p1.testElementPresented()){
-            System.out.println("Element truste-consent-button is presented");
-        }else{
-            System.out.println("Element truste-consent-button is not found");
-        }
+        //This path is to be used when running from IDE.
+//        System.setProperty("webdriver.chrome.driver",path+"\\src\\main\\resources\\chromedriver.exe");
+        //This path is to be run when packaging to executable jar file (main reason is because user.dir change when creating jar file).
+        System.setProperty("webdriver.chrome.driver",path+"\\classes\\chromedriver.exe");
 
     }
+
 }
