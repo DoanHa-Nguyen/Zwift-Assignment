@@ -33,26 +33,28 @@ public class Problem_2 {
         driver.quit();
     }
     protected void run() {
-        System.out.println("Hello World!");
+        System.out.println("Starting Test Two\n");
         if(pretest()){
            if(testNavigateToEventsPage()){
                System.out.println("Test to navigate to Events Page passed");
            }else{
                System.out.println("Test to navigate to Events Page failed");
            }
-           System.out.println("Moving On");
+
            List<WebElement> beforeFilterEventsList = driver.findElements(By.className("tab-listing"));
-           System.out.println("Before filters are applied, there are " + beforeFilterEventsList.size() + " events on the list.");
            if (testApplyFilters()){
-               System.out.println("Test to apply filters passed");
+               List<WebElement> afterFilterEventsList = driver.findElements(By.className("tab-listing"));
+               if(afterFilterEventsList.size() < beforeFilterEventsList.size()) {
+                   System.out.println("Test to apply filters passed");
+               }
            }else{
                System.out.println("Test to apply filters failed");
            }
-           List<WebElement> afterFilterEventsList = driver.findElements(By.className("tab-listing"));
-            System.out.println("After filters are applied, there are " + afterFilterEventsList.size() + " events on the list.");
+
+
         }
 
-        System.out.println("We're done here!");
+        System.out.println("\nFinishing Test 2");
 
     }
 
@@ -77,7 +79,6 @@ public class Problem_2 {
 
             List<WebElement> buttonsList = driver.findElements(By.className("buttons"));
             for(WebElement a: buttonsList){
-                System.out.println(a.getText());
                 if(a.getText().equalsIgnoreCase("Cycling")){
                     a.click();
                 }else
