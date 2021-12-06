@@ -9,11 +9,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Problem_2 {
     WebDriver driver;
+    WebDriverWait waiter;
     Problem_2(){
         driver = new ChromeDriver();
+        waiter = new WebDriverWait(driver, Duration.ofSeconds(6));
     }
     private boolean pretest(){
         try{
@@ -23,7 +26,7 @@ public class Problem_2 {
             System.out.print(e.getMessage());
             return false;
         }
-        new WebDriverWait(driver, Duration.ofSeconds(6)).until(ExpectedConditions.elementToBeClickable(By.id("truste-consent-button"))).click();
+        waiter.until(ExpectedConditions.elementToBeClickable(By.id("truste-consent-button"))).click();
         return true;
     }
     protected void finish(){
@@ -37,7 +40,18 @@ public class Problem_2 {
            }else{
                System.out.println("Test to navigate to Events Page failed");
            }
+           System.out.println("Moving On");
+           List<WebElement> beforeFilterEventsList = driver.findElements(By.className("tab-listing"));
+           System.out.println("Before filters are applied, there are " + beforeFilterEventsList.size() + " events on the list.");
+           if (testApplyFilters()){
+               System.out.println("Test to apply filters passed");
+           }else{
+               System.out.println("Test to apply filters failed");
+           }
+           List<WebElement> afterFilterEventsList = driver.findElements(By.className("tab-listing"));
+            System.out.println("After filters are applied, there are " + afterFilterEventsList.size() + " events on the list.");
         }
+
         System.out.println("We're done here!");
 
     }
@@ -47,8 +61,7 @@ public class Problem_2 {
             WebElement menuElement = driver.findElement(By.className("PrimaryNav-module__hamburger--1y_LN"));
             menuElement.click();
 
-            new WebDriverWait(driver, Duration.ofSeconds(5))
-                    .until(ExpectedConditions.elementToBeClickable(
+            waiter.until(ExpectedConditions.elementToBeClickable(
                             By.xpath("//*[@id=\"__next\"]/div/div/div[1]/div[2]/div/aside/div/div[2]/div[2]/div/div[1]/ul[2]/li[1]/a")))
                     .click();
             return true;
@@ -56,6 +69,31 @@ public class Problem_2 {
             System.out.println(noElementException.getMessage());
             return false;
         }
+    }
 
+    protected boolean testApplyFilters(){
+        try{
+            waiter.until(ExpectedConditions.elementToBeClickable(By.className("filter-toggle"))).click();
+
+            List<WebElement> buttonsList = driver.findElements(By.className("buttons"));
+            for(WebElement a: buttonsList){
+                System.out.println(a.getText());
+                if(a.getText().equalsIgnoreCase("Cycling")){
+                    a.click();
+                }else
+                if(a.getText().equalsIgnoreCase("B")){
+                    a.click();
+                }else
+                if(a.getText().equalsIgnoreCase("Morning")){
+                    a.click();
+                }
+            }
+            System.out.println("Filters applied: Sports - Cycling, Intensity - B, Start Time - Morning");
+            driver.findElement(By.className("apply-button")).click();
+            return true;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
