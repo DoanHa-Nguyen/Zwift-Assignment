@@ -78,14 +78,18 @@ public class Problem_2 {
             for(WebElement a: buttonsList){
                 if(a.getText().equalsIgnoreCase("Cycling")){
                     a.click();
-                }else
-                if(a.getText().equalsIgnoreCase("B")){
-                    a.click();
-                }else
-                if(a.getText().equalsIgnoreCase("Morning")){
-                    a.click();
                 }
             }
+            buttonsList = driver.findElements(By.className("buttons"));
+            for(WebElement b: buttonsList){
+                if(b.getText().equalsIgnoreCase("B")){
+                    b.click();
+                }
+                if(b.getText().equalsIgnoreCase("Morning")){
+                    b.click();
+                }
+            }
+
             System.out.println("Filters applied: Sports - Cycling, Intensity - B, Start Time - Morning");
             driver.findElement(By.className("apply-button")).click();
             return true;

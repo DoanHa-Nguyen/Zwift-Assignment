@@ -1,6 +1,7 @@
 package com.Assignment;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -51,7 +52,12 @@ public class Problem_1 {
     //Test to fine the "Accept all" button when prompted for cookies.
     protected boolean testElementPresented(){
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        WebElement testElement_2 = driver.findElement(By.id("truste-consent-button"));
-        return testElement_2.isDisplayed();
+        try{
+            WebElement testElement_2 = driver.findElement(By.id("truste-consent-button"));
+            return true;
+        }catch(NoSuchElementException ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
 }
