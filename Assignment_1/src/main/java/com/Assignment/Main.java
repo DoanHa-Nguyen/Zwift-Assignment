@@ -16,9 +16,9 @@ public class Main {
         String path = System.getProperty("user.dir");
         System.out.println(path);
         //This path is to be used when running from IDE.
-        System.setProperty("webdriver.chrome.driver",path+"\\src\\main\\resources\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver",path+"\\src\\main\\resources\\chromedriver.exe");
         //This path is to be run when packaging to executable jar file (main reason is because user.dir change when creating jar file).
-//        System.setProperty("webdriver.chrome.driver",path+"\\classes\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver",path+"\\classes\\chromedriver.exe");
 
     }
 

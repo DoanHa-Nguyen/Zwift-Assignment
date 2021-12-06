@@ -50,10 +50,7 @@ public class Problem_2 {
            }else{
                System.out.println("Test to apply filters failed");
            }
-
-
         }
-
         System.out.println("\nFinishing Test 2");
 
     }
